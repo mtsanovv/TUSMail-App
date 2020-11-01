@@ -1,0 +1,22 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <!-- TUSMail POP Server Port Preference -->
+    <string-array name="tusmail_ports">
+        <item>110</item>
+        <item>143</item>
+        <item>993</item>
+        <item>995</item>
+        <item>1110</item>
+        <item>2221</item>
+    </string-array>
+</resources>

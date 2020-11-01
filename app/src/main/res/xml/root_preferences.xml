@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="visible">
+
+    <PreferenceCategory app:title="@string/server_settings_header" />
+    <EditTextPreference
+        android:defaultValue="false"
+        android:key="tusmailServer"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/edit_tusmail_server" />
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/tusmail_ports"
+        android:entryValues="@array/tusmail_ports"
+        android:key="tusmailPort"
+        android:title="@string/edit_tusmail_port" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="tusmailSSL"
+        android:title="@string/edit_tusmail_ssl" />
+
+</PreferenceScreen>

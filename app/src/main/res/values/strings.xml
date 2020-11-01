@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">TUSMail Students</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">\@tu-sofia.bg e-mail</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Log in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Invalid username</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="save_credentials">Keep me signed in</string>
+    <string name="extra_settings"><u>Extra Settings</u></string>
+    <string name="privacy_policy"><u>Privacy Policy</u></string>
+    <string name="title_activity_t_u_s_mail_settings">TUSMail Settings</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <string name="tusmail_server" translatable="false">tusmail_server</string>
+    <string name="tusmail_port" translatable="false">tusmail_port</string>
+    <string name="tusmail_ssl" translatable="false">tusmail_ssl</string>
+    <string name="tusmail_default_domain" translatable="false">.tu-sofia.bg</string>
+    <string name="tusmail_default_port" translatable="false">995</string>
+    <string name="tusmail_default_ssl" translatable="false">true</string>
+    <string name="tusmail_default_server" translatable="false">tusmail</string>
+    <string name="title_activity_privacy_policy">Privacy Policy</string>
+    <string name="privacypolicy_text">"<b>About the stored data</b>\n\nAny data entered in this app is used <b>only</b> for communication with the official TU-Sofia mail servers. None of that is stored without the user\'s consent. The sensitive information (email addresses and passwords) is encrypted when saved.\n\n<b>Important notice</b>\n\nThis app is developed and distributed free of charge and I, the creator (Marin Tsanov) cannot be held responsible for any modifications that may happen further to this app. The original repository that can be used for reference for what I have created is located on <a href="https://github.com/mtsanovv/TUSMail-App">https://github.com/mtsanovv/TUSMail-App</a>.\n\n<i>Marin Tsanov, 2020</i>"</string>
+    <string name="action_settings">Settings</string>
+    <string name="preference_file_key" translatable="false">com.mtsan.TUSMailApp</string>
+    <string name="server_settings_header">POP3 server Settings</string>
+    <string name="edit_tusmail_server">Edit TUSMail server subdomain</string>
+    <string name="edit_tusmail_port">Edit TUSMail port</string>
+    <string name="edit_tusmail_ssl">Use SSL for TUSMail</string>
+</resources>

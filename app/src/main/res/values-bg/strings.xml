@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TUSMail Студенти</string>
+    <string name="prompt_email">\@tu-sofia.bg мейл</string>
+    <string name="prompt_password">Парола</string>
+    <string name="action_sign_in">Влизане</string>
+    <string name="action_sign_in_short">Вход</string>
+    <string name="welcome">Добре дошли !</string>
+    <string name="invalid_username">Невалидно потребителско име</string>
+    <string name="invalid_password">Невалидна парола</string>
+    <string name="login_failed">Влизането неуспешно</string>
+    <string name="save_credentials">Остани вписан</string>
+    <string name="extra_settings"><u>Допълнителни настройки</u></string>
+    <string name="privacy_policy"><u>Политика за поверителност</u></string>
+    <string name="title_activity_t_u_s_mail_settings">Настройки на TUSMail</string>
+    <string name="title_activity_privacy_policy" translatable="false">Поверителност</string>
+    <string name="action_settings" translatable="false">Настройки</string>
+    <string name="privacypolicy_text">"<b>За съхраняваните данни</b>\n\nВсички данни, които могат да бъдат въведени от потребител в приложението се използват <b>само</b> за целите за връзка с официалните сървъри на ТУ-София. Тази информация се съхранява само с ИЗРИЧНОТО съгласие на потребителя. Данни като имейл адреси и пароли се криптират, когато се запазват на устройството.\n\n<b>Важна забележка</b>\n\nТова приложение е създадено и се разпространява напълно безплатно. Създателят - аз, Марин Цанов, не мога да бъда отговорен за бъдещи промени, които могат да бъдат правени от трети лица. За справка, оригиналният код на приложението, разработван от мен, се намира на адрес <a href="https://github.com/mtsanovv/TUSMail-App">https://github.com/mtsanovv/TUSMail-App</a>.\n\n<i>Марин Цанов, 2020</i>"</string>
+    <string name="server_settings_header" translatable="false">Настройки на POP3 сървър</string>
+    <string name="edit_tusmail_server">Редактиране на събдомейна на TUSMail сървър</string>
+    <string name="edit_tusmail_port">Редактиране на порта на TUSMail сървър</string>
+    <string name="edit_tusmail_ssl">Използване на сигурна връзка за TUSMail</string>
+</resources>
