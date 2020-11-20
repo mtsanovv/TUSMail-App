@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private ProgressBar loadingProgressBar;
+    private TextView errorMessage;
 
 
     @Override
@@ -66,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
         loadingProgressBar = findViewById(R.id.loading);
+        errorMessage = findViewById(R.id.errorMessage);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -107,8 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loadingProgressBar.setVisibility(View.VISIBLE);
-                    loginButton.setVisibility(View.GONE);
+                    toggleLoading(false);
                 }
                 return false;
             }
@@ -121,8 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginButton.setVisibility(View.GONE);
+                toggleLoading(true);
 
                 attemptLogin(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void attemptLogin(String username, String password)
     {
+        errorMessage.setVisibility(View.INVISIBLE);
         try
         {
             ProviderInstaller.installIfNeeded(getApplicationContext());
@@ -145,11 +146,15 @@ public class LoginActivity extends AppCompatActivity {
         Properties properties = System.getProperties();
         properties.setProperty("mail.pop3.host", this.getTusmailServer() + ".tu-sofia.bg");
         properties.setProperty("mail.pop3.port", String.valueOf(this.getTusmailPort()));
+        properties.setProperty("mail.pop3.connectiontimeout", "10000"); //10s socket connect timeout
+        properties.setProperty("mail.pop3.timeout", "10000"); //10s socket read timeout
+        properties.setProperty("mail.pop3.connectionpooltimeout", "10000"); //10s socket write timeout
         if(this.getTusmailSSL())
         {
             properties.setProperty("mail.pop3.ssl.enable", "true");
         }
         Session session = Session.getDefaultInstance(properties);
+        LoginActivity mainThread = this;
         new Thread(new Runnable() {
             @Override
             public void run()
@@ -180,7 +185,37 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 catch (Exception e)
                 {
-                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String message = e.getMessage();
+                            System.out.println(message);
+                            switch(message)
+                            {
+                                case "[AUTH] Authentication failed.":
+                                    errorMessage.setText(getString(R.string.authFailed));
+                                    break;
+                                case "Connect failed":
+                                    errorMessage.setText(getString(R.string.connectFailed));
+                                    break;
+                                case "[AUTH] Plaintext authentication disallowed on non-secure (SSL/TLS) connections.":
+                                    errorMessage.setText(getString(R.string.sslError));
+                                    break;
+                                default:
+                                    if(message.toLowerCase().indexOf("timeout") != -1 || message.toLowerCase().indexOf("timed out") != -1)
+                                    {
+                                        errorMessage.setText(getString(R.string.connectTimeout));
+                                    }
+                                    else
+                                    {
+                                        errorMessage.setText(getString(R.string.errorOccurred));
+                                    }
+                                    break;
+                            }
+                            errorMessage.setVisibility(View.VISIBLE);
+                            toggleLoading(false);
+                        }
+                    });
                 }
             }
         }).start();

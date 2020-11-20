@@ -4,7 +4,7 @@
     <string name="prompt_email">\@tu-sofia.bg мейл</string>
     <string name="prompt_password">Парола</string>
     <string name="action_sign_in">Влизане</string>
-    <string name="action_sign_in_short">Вход</string>
+    <string name="action_sign_in_short">Готово</string>
     <string name="welcome">Добре дошли !</string>
     <string name="invalid_username">Невалидно потребителско име</string>
     <string name="invalid_password">Невалидна парола</string>
@@ -20,4 +20,9 @@
     <string name="edit_tusmail_server">Редактиране на събдомейна на TUSMail сървър</string>
     <string name="edit_tusmail_port">Редактиране на порта на TUSMail сървър</string>
     <string name="edit_tusmail_ssl">Използване на сигурна връзка за TUSMail</string>
+    <string name="authFailed">Потребителят не може да бъде удостоверен. Проверете имейл адреса и паролата.</string>
+    <string name="connectFailed">Връзката със сървърите на TUSMail e неуспешна, моля проверете настройките на сървъра.</string>
+    <string name="errorOccurred">Възникна грешка при влизането.</string>
+    <string name="connectTimeout">Връзката със сървъра бе изгубена. Моля, проверете Интернет връзката си и/или настройките за TUSMail сървъра.</string>
+    <string name="sslError">Изисква се защитена SSL връзка, за да може да се свържете. Проверете настройките на TUSMail сървъра.</string>
 </resources>

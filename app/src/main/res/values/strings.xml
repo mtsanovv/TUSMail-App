@@ -4,7 +4,7 @@
     <string name="prompt_email">\@tu-sofia.bg e-mail</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="action_sign_in_short">Log in</string>
+    <string name="action_sign_in_short">Done</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Invalid username</string>
     <string name="invalid_password">Invalid password</string>
@@ -34,4 +34,9 @@
     <string name="edit_tusmail_server">Edit TUSMail server subdomain</string>
     <string name="edit_tusmail_port">Edit TUSMail port</string>
     <string name="edit_tusmail_ssl">Use SSL for TUSMail</string>
+    <string name="authFailed">Authentication failed, please double check the email and the password.</string>
+    <string name="connectFailed">Connection failed, please check the TUSMail server settings.</string>
+    <string name="errorOccurred">An error has occurred.</string>
+    <string name="connectTimeout">The connection with the server has timed out. Please check your network connection and/or the TUSMail server settings.</string>
+    <string name="sslError">You need to use SSL to connect, please check the TUSMail server settings.</string>
 </resources>
