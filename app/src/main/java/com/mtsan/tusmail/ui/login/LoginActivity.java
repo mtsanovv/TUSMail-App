@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
                                     errorMessage.setText(getString(R.string.sslError));
                                     break;
                                 default:
-                                    if(message.toLowerCase().indexOf("timeout") != -1 || message.toLowerCase().indexOf("timed out") != -1)
+                                    if(message.toLowerCase().contains("timeout") || message.toLowerCase().contains("timed out"))
                                     {
                                         errorMessage.setText(getString(R.string.connectTimeout));
                                     }
