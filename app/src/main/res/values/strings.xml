@@ -39,4 +39,6 @@
     <string name="errorOccurred">An error has occurred.</string>
     <string name="connectTimeout">The connection with the server has timed out. Please check your network connection and/or the TUSMail server settings.</string>
     <string name="sslError">You need to use SSL to connect, please check the TUSMail server settings.</string>
+    <string name="tusmail_saved_email" translatable="false">tusmail_saved_email</string>
+    <string name="tusmail_saved_password" translatable="false">tusmail_saved_password</string>
 </resources>

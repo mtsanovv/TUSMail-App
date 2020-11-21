@@ -42,9 +42,9 @@ public class Encryption
     private static final String RSA_MODE = "RSA/ECB/PKCS1Padding";
     private static final String AES_MODE_M = "AES/GCM/NoPadding";
 
-    private static final String KEY_ALIAS = "KEY";
+    private static final String KEY_ALIAS = "TUSMAIL_LOGIN_KEY";
     private static final String AndroidKeyStore = "AndroidKeyStore";
-    public static final String SHARED_PREFENCE_NAME = "SAVED_TO_SHARED";
+    public static String SHARED_PREFENCE_NAME = "com.mtsan.TUSMailApp";
     public static final String ENCRYPTED_KEY = "ENCRYPTED_KEY";
     public static final String PUBLIC_IV = "PUBLIC_IV";
 
@@ -70,6 +70,7 @@ public class Encryption
 
     public Encryption(Context ctx) throws NoSuchPaddingException, NoSuchProviderException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, KeyStoreException, CertificateException, IOException
     {
+        SHARED_PREFENCE_NAME = ctx.getString(R.string.preference_file_key);
         this.generateEncryptKey(ctx);
         this.generateRandomIV(ctx);
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M)
@@ -290,11 +291,5 @@ public class Encryption
             edit.putString(PUBLIC_IV, generatedIVstr);
             edit.apply();
         }
-    }
-
-    private String getStringFromSharedPrefs(String key, Context ctx)
-    {
-        SharedPreferences prefs = ctx.getSharedPreferences(ctx.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        return prefs.getString(key, null);
     }
 }
