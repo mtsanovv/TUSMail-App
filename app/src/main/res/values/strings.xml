@@ -5,7 +5,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Done</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Welcome, "</string>
     <string name="invalid_username">Invalid username</string>
     <string name="invalid_password">Invalid password</string>
     <string name="login_failed">"Login failed"</string>
@@ -41,4 +41,14 @@
     <string name="sslError">You need to use SSL to connect, please check the TUSMail server settings.</string>
     <string name="tusmail_saved_email" translatable="false">tusmail_saved_email</string>
     <string name="tusmail_saved_password" translatable="false">tusmail_saved_password</string>
+    <string name="title_activity_mailbox" translatable="false">TUSMail</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">TUSMail Student</string>
+    <string name="nav_header_subtitle" translatable="false">tusmail@tu-sofia.bg</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_inbox">Inbox</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>

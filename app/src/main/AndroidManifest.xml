@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mtsan.tusmail">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TUSMail">
         <activity
+            android:name=".MailboxActivity"
+            android:label="@string/title_activity_mailbox"
+            android:theme="@style/Theme.TUSMail.NoActionBar"></activity>
+        <activity
             android:name=".PrivacyPolicy"
             android:label="@string/title_activity_privacy_policy"
-            android:theme="@style/Theme.TUSMail.NoActionBar"></activity>
+            android:theme="@style/Theme.TUSMail.NoActionBar" />
         <activity
             android:name=".TUSMailSettingsActivity"
             android:label="@string/title_activity_t_u_s_mail_settings" />

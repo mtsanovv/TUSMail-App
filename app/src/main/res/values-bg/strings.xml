@@ -5,7 +5,7 @@
     <string name="prompt_password">Парола</string>
     <string name="action_sign_in">Влизане</string>
     <string name="action_sign_in_short">Готово</string>
-    <string name="welcome">Добре дошли !</string>
+    <string name="welcome">"Добре дошли, "</string>
     <string name="invalid_username">Невалидно потребителско име</string>
     <string name="invalid_password">Невалидна парола</string>
     <string name="login_failed">Влизането неуспешно</string>
@@ -25,4 +25,8 @@
     <string name="errorOccurred">Възникна грешка при влизането.</string>
     <string name="connectTimeout">Връзката със сървъра бе изгубена. Моля, проверете Интернет връзката си и/или настройките за TUSMail сървъра.</string>
     <string name="sslError">Изисква се защитена SSL връзка, за да може да се свържете. Проверете настройките на TUSMail сървъра.</string>
+    <string name="navigation_drawer_open">Отваряне на менюто</string>
+    <string name="navigation_drawer_close">Затваряне на менюто</string>
+    <string name="nav_header_title">TUSMail Студент</string>
+    <string name="menu_inbox">Входяща поща</string>
 </resources>

@@ -18,28 +18,34 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
-public class TUSMailSettingsActivity extends AppCompatActivity {
+public class TUSMailSettingsActivity extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
+        {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.settings, new SettingsFragment())
                     .commit();
         }
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        if (actionBar != null)
+        {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -51,29 +57,34 @@ public class TUSMailSettingsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         super.onBackPressed();
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_CANCELED, returnIntent);
         finish();
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    public static class SettingsFragment extends PreferenceFragmentCompat
+    {
 
         private String tusmailServer = "";
         private int tusmailPort = 0;
         private boolean tusmailSSL = true;
 
         @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
+        {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             this.initializeTUSMailPreferences();
 
             EditTextPreference tusmailServerPreference = (EditTextPreference) getPreferenceManager().findPreference("tusmailServer");
             tusmailServerPreference.setText(this.getTusmailServer());
-            tusmailServerPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            tusmailServerPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+            {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                public boolean onPreferenceChange(Preference preference, Object newValue)
+                {
                     final SharedPreferences sharedPref = preference.getContext().getSharedPreferences(
                             getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -85,9 +96,11 @@ public class TUSMailSettingsActivity extends AppCompatActivity {
 
             ListPreference tusmailPortPreference = (ListPreference) getPreferenceManager().findPreference("tusmailPort");
             tusmailPortPreference.setValue(String.valueOf(this.getTusmailPort()));
-            tusmailPortPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            tusmailPortPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+            {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                public boolean onPreferenceChange(Preference preference, Object newValue)
+                {
                     final SharedPreferences sharedPref = preference.getContext().getSharedPreferences(
                             getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -99,9 +112,11 @@ public class TUSMailSettingsActivity extends AppCompatActivity {
 
             SwitchPreference tusmailSSLPreference = (SwitchPreference) getPreferenceManager().findPreference("tusmailSSL");
             tusmailSSLPreference.setChecked(this.getTusmailSSL());
-            tusmailSSLPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            tusmailSSLPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+            {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                public boolean onPreferenceChange(Preference preference, Object newValue)
+                {
                     final SharedPreferences sharedPref = preference.getContext().getSharedPreferences(
                             getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -119,7 +134,7 @@ public class TUSMailSettingsActivity extends AppCompatActivity {
             String tusmailPortString = this.readPreference(getString(R.string.tusmail_port));
             String tusmailSSLString = this.readPreference(getString(R.string.tusmail_ssl));
 
-            if(tusmailServer != null)
+            if (tusmailServer != null)
             {
                 this.setTusmailServer(tusmailServer);
             }
@@ -128,14 +143,15 @@ public class TUSMailSettingsActivity extends AppCompatActivity {
                 this.setTusmailServer(getString(R.string.tusmail_default_server));
             }
 
-            if(tusmailPortString != null)
+            if (tusmailPortString != null)
             {
                 int port;
-                try {
+                try
+                {
                     port = Integer.parseInt(tusmailPortString);
                     this.setTusmailPort(port);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.setTusmailPort(Integer.parseInt(getString(R.string.tusmail_default_port)));
                 }
@@ -145,14 +161,15 @@ public class TUSMailSettingsActivity extends AppCompatActivity {
                 this.setTusmailPort(Integer.parseInt(getString(R.string.tusmail_default_port)));
             }
 
-            if(tusmailSSLString != null)
+            if (tusmailSSLString != null)
             {
                 boolean SSL;
-                try {
+                try
+                {
                     SSL = Boolean.parseBoolean(tusmailSSLString);
                     this.setTusmailSSL(SSL);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.setTusmailSSL(Boolean.parseBoolean(getString(R.string.tusmail_default_ssl)));
                 }
@@ -179,27 +196,33 @@ public class TUSMailSettingsActivity extends AppCompatActivity {
             editor.apply();
         }
 
-        public String getTusmailServer() {
+        public String getTusmailServer()
+        {
             return tusmailServer;
         }
 
-        public int getTusmailPort() {
+        public int getTusmailPort()
+        {
             return tusmailPort;
         }
 
-        public boolean getTusmailSSL() {
+        public boolean getTusmailSSL()
+        {
             return tusmailSSL;
         }
 
-        public void setTusmailServer(String tusmailServer) {
+        public void setTusmailServer(String tusmailServer)
+        {
             this.tusmailServer = tusmailServer;
         }
 
-        public void setTusmailPort(int tusmailPort) {
+        public void setTusmailPort(int tusmailPort)
+        {
             this.tusmailPort = tusmailPort;
         }
 
-        public void setTusmailSSL(boolean tusmailSSL) {
+        public void setTusmailSSL(boolean tusmailSSL)
+        {
             this.tusmailSSL = tusmailSSL;
         }
     }

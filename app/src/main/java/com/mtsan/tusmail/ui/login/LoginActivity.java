@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.security.ProviderInstaller;
 import com.mtsan.tusmail.Encryption;
+import com.mtsan.tusmail.MailboxActivity;
 import com.mtsan.tusmail.PrivacyPolicy;
 import com.mtsan.tusmail.R;
 import com.mtsan.tusmail.TUSMailSettingsActivity;
@@ -53,6 +54,7 @@ public class LoginActivity extends AppCompatActivity
     private boolean tusmailSSL = true;
 
     final int SETTINGS_ACTIVITY = 1;
+    final int MAILBOX_ACTIVITY = 2;
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -231,23 +233,15 @@ public class LoginActivity extends AppCompatActivity
                         }
                     }
 
-                    //all the code below is nice for later
-
-                    /*
-                    Message[] messages = inbox.getMessages();
-
-                    if (messages.length == 0) System.out.println("No messages found.");
-
-                    for (int i = 0; i < messages.length; i++)
+                    openMailbox();
+                    runOnUiThread(new Runnable()
                     {
-
-                        System.out.println("Message " + (i + 1));
-                        System.out.println("From : " + messages[i].getFrom()[0]);
-                        System.out.println("Subject : " + messages[i].getSubject());
-                        System.out.println("Sent Date : " + messages[i].getSentDate());
-                        System.out.println();
-                    }
-                     */
+                        @Override
+                        public void run()
+                        {
+                            Toast.makeText(getApplicationContext(), getString(R.string.welcome) + username + "!", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
                 catch (Exception e)
                 {
@@ -407,6 +401,12 @@ public class LoginActivity extends AppCompatActivity
         startActivityForResult(intent, SETTINGS_ACTIVITY);
     }
 
+    private void openMailbox()
+    {
+        Intent intent = new Intent(this, MailboxActivity.class);
+        startActivityForResult(intent, MAILBOX_ACTIVITY);
+    }
+
     public void openPrivacyPolicy(View v)
     {
         Intent intent = new Intent(this, PrivacyPolicy.class);
@@ -425,17 +425,5 @@ public class LoginActivity extends AppCompatActivity
                 this.initializeTUSMailPreferences();
             }
         }
-    }
-
-    private void updateUiWithUser(LoggedInUserView model)
-    {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-    }
-
-    private void showLoginFailed(@StringRes Integer errorString)
-    {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 }
