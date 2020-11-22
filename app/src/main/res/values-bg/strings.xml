@@ -29,4 +29,10 @@
     <string name="navigation_drawer_close">Затваряне на менюто</string>
     <string name="nav_header_title">TUSMail Студент</string>
     <string name="menu_inbox">Входяща поща</string>
+    <string name="menu_drafts">Чернови</string>
+    <string name="menu_sent">Изпратени</string>
+    <string name="menu_trash">Кошче</string>
+    <string name="mailbox_error">Възникна грешка, моля влезте отново.</string>
+    <string name="action_logout">Изход</string>
+    <string name="action_privacyPolicy">Политика за поверителност</string>
 </resources>
