@@ -46,9 +46,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">TUSMail Student</string>
     <string name="nav_header_subtitle" translatable="false">tusmail@tu-sofia.bg</string>
-    <string name="nav_header_desc">Navigation header</string>
 
     <string name="menu_inbox">Inbox</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_drafts">Drafts</string>
+    <string name="menu_sent">Sent</string>
+    <string name="menu_trash">Trash</string>
+    <string name="mailbox_error">An error has occurred. Please log in again.</string>
+    <string name="action_logout">Log out</string>
+    <string name="tuSofiaSuffix" translatable="false">\@tu-sofia.bg</string>
+    <string name="action_privacyPolicy">Privacy Policy</string>
 </resources>

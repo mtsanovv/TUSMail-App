@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_drafts"
         android:name="com.mtsan.tusmail.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_drafts"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_sent"
         android:name="com.mtsan.tusmail.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_sent"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_trash"
+        android:name="com.mtsan.tusmail.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_trash"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.mtsan.tusmail.ui.login.LoginActivity;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,13 +23,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import java.io.IOException;
 
 public class MailboxActivity extends AppCompatActivity
 {
@@ -40,7 +42,9 @@ public class MailboxActivity extends AppCompatActivity
     final int SETTINGS_ACTIVITY = 1;
     final int MAILBOX_ACTIVITY = 2;
 
-    private Encryption encryption;
+    private String email = null;
+    private String password = null;
+    private String defaultNameIdentity = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,8 +52,10 @@ public class MailboxActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailbox);
 
-        encryption = Encryption.getInstance(this);
         this.initializeTUSMailPreferences();
+
+        email = getIntent().getStringExtra("email");
+        password = getIntent().getStringExtra("password");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,15 +73,54 @@ public class MailboxActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_drafts, R.id.nav_sent, R.id.nav_trash)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //fetching the display name for the user we have
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    Connection.Response loggedInUser = TUSMailWebLogin();
+                    Connection.Response identitiesPageResponse = Jsoup.connect("https://tusmail.tu-sofia.bg/?_task=settings&_action=plugin.userinfo")
+                            .cookies(loggedInUser.cookies())
+                            .method(Connection.Method.GET)
+                            .execute();
+
+                    //getting the default identity name from the web page
+                    Document identitiesPage = Jsoup.parse(identitiesPageResponse.body());
+                    String defaultIdentity = identitiesPage.getElementsByClass("propform").get(0).getElementsByTag("tbody").get(0).getElementsByTag("tr").last().getElementsByTag("td").last().html();
+                    runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            if(defaultIdentity.lastIndexOf(" &lt;") != -1)
+                            {
+                                defaultNameIdentity = defaultIdentity.substring(0, defaultIdentity.lastIndexOf(" &lt;"));
+                                TextView usernameView = findViewById(R.id.userIdentity);
+                                usernameView.setText(defaultNameIdentity);
+                            }
+                        }
+                    });
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -89,9 +134,34 @@ public class MailboxActivity extends AppCompatActivity
     @Override
     public boolean onSupportNavigateUp()
     {
+        TextView emailView = findViewById(R.id.userEmail);
+        emailView.setText(email + getString(R.string.tuSofiaSuffix));
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private Connection.Response TUSMailWebLogin() throws IOException
+    {
+        Connection.Response loginPage = Jsoup.connect("https://tusmail.tu-sofia.bg/")
+                .method(Connection.Method.GET)
+                .execute();
+
+        Document loginDoc = Jsoup.parse(loginPage.body());
+        Element loginForm = loginDoc.getElementsByTag("form").get(0);
+
+        Connection.Response loggedInUser = Jsoup.connect("https://tusmail.tu-sofia.bg/?_task=login")
+                .data("_token", loginForm.child(0).attr("value"))
+                .data("_task", "login")
+                .data("_action", "login")
+                .data("_timezone", loginForm.child(3).attr("value"))
+                .data("_url", "")
+                .data("_user", email)
+                .data("_pass", password)
+                .cookies(loginPage.cookies())
+                .method(Connection.Method.POST)
+                .execute();
+        return loggedInUser;
     }
 
     private void initializeTUSMailPreferences()
@@ -190,16 +260,25 @@ public class MailboxActivity extends AppCompatActivity
         this.tusmailSSL = tusmailSSL;
     }
 
-    public void openExtraSettings(View v)
+    public void openExtraSettings(MenuItem m)
     {
         Intent intent = new Intent(this, TUSMailSettingsActivity.class);
         startActivityForResult(intent, SETTINGS_ACTIVITY);
     }
 
-    public void openPrivacyPolicy(View v)
+    public void openPrivacyPolicy(MenuItem m)
     {
         Intent intent = new Intent(this, PrivacyPolicy.class);
         startActivity(intent);
+    }
+
+    public void backToLoginActivity(MenuItem m)
+    {
+        writePreference(getString(R.string.tusmail_saved_email), null);
+        writePreference(getString(R.string.tusmail_saved_password), null);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

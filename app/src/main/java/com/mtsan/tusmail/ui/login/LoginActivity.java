@@ -34,6 +34,12 @@ import com.mtsan.tusmail.PrivacyPolicy;
 import com.mtsan.tusmail.R;
 import com.mtsan.tusmail.TUSMailSettingsActivity;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -54,7 +60,6 @@ public class LoginActivity extends AppCompatActivity
     private boolean tusmailSSL = true;
 
     final int SETTINGS_ACTIVITY = 1;
-    final int MAILBOX_ACTIVITY = 2;
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -233,15 +238,7 @@ public class LoginActivity extends AppCompatActivity
                         }
                     }
 
-                    openMailbox();
-                    runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            Toast.makeText(getApplicationContext(), getString(R.string.welcome) + username + "!", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    openMailbox(username, password);
                 }
                 catch (Exception e)
                 {
@@ -401,10 +398,17 @@ public class LoginActivity extends AppCompatActivity
         startActivityForResult(intent, SETTINGS_ACTIVITY);
     }
 
-    private void openMailbox()
+    private void openMailbox(String username, String password)
     {
         Intent intent = new Intent(this, MailboxActivity.class);
-        startActivityForResult(intent, MAILBOX_ACTIVITY);
+        if(username.contains("@"))
+        {
+            username = username.split("@")[0];
+        }
+        intent.putExtra("email", username);
+        intent.putExtra("password", password);
+        startActivity(intent);
+        finish();
     }
 
     public void openPrivacyPolicy(View v)
